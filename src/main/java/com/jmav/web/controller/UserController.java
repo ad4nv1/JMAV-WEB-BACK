@@ -14,22 +14,28 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.jmav.web.model.User;
+import com.jmav.web.model.dto.LogarDto;
 import com.jmav.web.repository.UserRepository;
+import com.jmav.web.service.UserService;
 
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
 @RestController
 @RequestMapping("/user")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-public class UserController {
 
+public class UserController {
+	
 	@Autowired
 	private UserRepository repository;
+	
+	@Autowired
+	private UserService service;
 	
 	@GetMapping("/all")
 	public ResponseEntity<List<User>> findAllUser(){
@@ -44,18 +50,29 @@ public class UserController {
 	}
 	
 	@PostMapping("/logar")
-	public ResponseEntity<User> Autentication(@Valid @RequestBody User user){
-		return null;
+	public ResponseEntity Autentication(@Valid @RequestBody LogarDto user){
+		if(repository.findByEmail(user.getEmail()).isPresent()) {
+			Optional<User> userLogin = repository.findByEmail(user.getEmail());
+			if(user.getPassword().equals(userLogin.get().getPassword()))
+				return ResponseEntity.status(HttpStatus.OK).body(true);
+			else return ResponseEntity.status(HttpStatus.OK).body(false);
+		}else return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Usuario não encontrado");
 	}
 	
 	@PostMapping("/cadastrar")
 	public ResponseEntity<User> Post(@Valid @RequestBody User usuario){
-		 return null;
+		if(repository.findByEmail(usuario.getEmail()).isPresent()) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+		}else {
+			return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(usuario));
+		}
 	}
 	
 	@PutMapping("/atualizar")
-	public ResponseEntity<User> Put(@Valid @RequestBody User usuario){
-		return null;
+	public ResponseEntity<User> Put(@Valid @RequestBody User user){
+		return service.updateUser(user)
+                .map(resp -> ResponseEntity.status(HttpStatus.OK).body(resp))
+                .orElse(ResponseEntity.status(HttpStatus.BAD_REQUEST).build());
 	}
 	
 	@DeleteMapping("/{id}")
@@ -65,4 +82,5 @@ public class UserController {
 	        throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         repository.deleteById(id);
 	}
+	
 }

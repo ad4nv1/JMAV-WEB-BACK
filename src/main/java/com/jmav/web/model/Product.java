@@ -1,15 +1,15 @@
 package com.jmav.web.model;
 
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 
 @Entity
 public class Product {
@@ -33,12 +33,11 @@ public class Product {
 	@NotNull
 	private int inventory;
 	
-	@ManyToMany
-	@JoinTable(name = "product_user",
-	joinColumns = @JoinColumn(name = "product_id"),
-	inverseJoinColumns = @JoinColumn(name = "user_id"))
-	private List<User> users;
-
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	@JsonIgnoreProperties("products")
+	private Seller seller;
+	
 	public long getId() {
 		return id;
 	}
@@ -86,6 +85,7 @@ public class Product {
 	public void setInventory(int inventory) {
 		this.inventory = inventory;
 	}
+	
 	
 	
 

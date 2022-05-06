@@ -2,16 +2,12 @@ package com.jmav.web.model;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 public class User {
@@ -35,8 +31,17 @@ public class User {
 	@NotNull
 	private String developer;
 	
-	@ManyToMany(mappedBy = "users")
-	private List<Product> products;
+	
+
+	public User(long id, String name, String email, String password, String status, String developer) {
+		this.id = id;
+		this.name = name;
+		this.email = email;
+		this.password = password;
+		this.status = status;
+		this.developer = developer;
+	}
+	public User() {}
 
 	public long getId() {
 		return id;
@@ -85,15 +90,6 @@ public class User {
 	public void setDeveloper(String developer) {
 		this.developer = developer;
 	}
-
-	public List<Product> getProducts() {
-		return products;
-	}
-
-	public void setProducts(List<Product> products) {
-		this.products = products;
-	}
-	
 
 
 }
