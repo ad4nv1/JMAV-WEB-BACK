@@ -31,6 +31,8 @@ public class User {
 	@NotNull
 	private String developer;
 	
+	private String car;
+	
 	
 
 	public User(long id, String name, String email, String password, String status, String developer) {
@@ -89,6 +91,12 @@ public class User {
 
 	public void setDeveloper(String developer) {
 		this.developer = developer;
+	}
+	public String getCar() {
+		return car;
+	}
+	public void setCar(String car) {
+		this.car = car;
 	}
 
 

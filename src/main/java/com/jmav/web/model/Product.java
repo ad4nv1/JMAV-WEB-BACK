@@ -27,6 +27,8 @@ public class Product {
 	@NotNull
 	private String description;
 	
+	private String image;
+	
 	@NotNull
 	private String provider;
 	
@@ -56,6 +58,24 @@ public class Product {
 
 	public double getPrice() {
 		return price;
+	}
+	
+	
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+	public Seller getSeller() {
+		return seller;
+	}
+
+	public void setSeller(Seller seller) {
+		this.seller = seller;
 	}
 
 	public void setPrice(double price) {

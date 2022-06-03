@@ -28,7 +28,6 @@ import com.jmav.web.service.UserService;
 @RestController
 @RequestMapping("/user")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-
 public class UserController {
 	
 	@Autowired
@@ -54,8 +53,8 @@ public class UserController {
 		if(repository.findByEmail(user.getEmail()).isPresent()) {
 			Optional<User> userLogin = repository.findByEmail(user.getEmail());
 			if(user.getPassword().equals(userLogin.get().getPassword()))
-				return ResponseEntity.status(HttpStatus.OK).body(true);
-			else return ResponseEntity.status(HttpStatus.OK).body(false);
+				return ResponseEntity.status(HttpStatus.OK).body(userLogin);
+			else return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Login ou senha incorretos");
 		}else return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Usuario não encontrado");
 	}
 	
@@ -81,6 +80,18 @@ public class UserController {
         if(user.isEmpty())
 	        throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         repository.deleteById(id);
+	}
+	
+	@PostMapping("/updatecar")
+	public ResponseEntity updateCar(@RequestBody Long id, String valor) {
+		if(repository.findById(id).isPresent()) {
+			User user = repository.getById(id);
+			user.setCar(valor);
+			return ResponseEntity.status(HttpStatus.OK).body(user);
+		}else {
+			return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Usuário não encontrado");
+		}
+		
 	}
 	
 }
