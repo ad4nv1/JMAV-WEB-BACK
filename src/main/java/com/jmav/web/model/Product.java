@@ -32,6 +32,8 @@ public class Product {
 	@NotNull
 	private String provider;
 	
+	private String category;
+	
 	@NotNull
 	private int inventory;
 	
@@ -59,8 +61,6 @@ public class Product {
 	public double getPrice() {
 		return price;
 	}
-	
-	
 
 	public String getImage() {
 		return image;
@@ -96,6 +96,14 @@ public class Product {
 
 	public void setProvider(String provider) {
 		this.provider = provider;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
 	}
 
 	public int getInventory() {
