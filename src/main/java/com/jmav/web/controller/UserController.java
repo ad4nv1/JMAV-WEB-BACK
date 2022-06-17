@@ -37,8 +37,13 @@ public class UserController {
 	private UserService service;
 	
 	@GetMapping("/all")
-	public ResponseEntity<List<User>> findAllUser(){
-		return ResponseEntity.ok(repository.findAll());
+	public ResponseEntity findAllUser(){
+		try {
+			return ResponseEntity.ok(repository.findAll());
+		}catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.OK).body(e);
+		}
+		
 	}
 	
 	@GetMapping("/{id}")
@@ -50,20 +55,30 @@ public class UserController {
 	
 	@PostMapping("/logar")
 	public ResponseEntity Autentication(@Valid @RequestBody LogarDto user){
-		if(repository.findByEmail(user.getEmail()).isPresent()) {
-			Optional<User> userLogin = repository.findByEmail(user.getEmail());
-			if(user.getPassword().equals(userLogin.get().getPassword()))
-				return ResponseEntity.status(HttpStatus.OK).body(userLogin);
-			else return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Login ou senha incorretos");
-		}else return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Usuario não encontrado");
+		try {
+			if(repository.findByEmail(user.getEmail()).isPresent()) {
+				Optional<User> userLogin = repository.findByEmail(user.getEmail());
+				if(user.getPassword().equals(userLogin.get().getPassword()))
+					return ResponseEntity.status(HttpStatus.OK).body(userLogin);
+				else return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Login ou senha incorretos");
+			}else return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Usuario não encontrado");
+		}catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.OK).body(e);
+		}
+		
 	}
 	
 	@PostMapping("/cadastrar")
-	public ResponseEntity<User> Post(@Valid @RequestBody User usuario){
+	public ResponseEntity Post(@Valid @RequestBody User usuario){
 		if(repository.findByEmail(usuario.getEmail()).isPresent()) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
 		}else {
-			return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(usuario));
+			try {
+				return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(usuario));
+			}catch(Exception e) {
+				return ResponseEntity.status(HttpStatus.OK).body(e);
+			}
+			
 		}
 	}
 	
