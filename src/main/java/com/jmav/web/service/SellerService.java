@@ -23,8 +23,8 @@ public class SellerService {
 
 	public Optional<Seller> updateUser(Seller seller) {
 		if (repository.findById(seller.getId()).isPresent()) {
-			Optional<Seller> buscaSeller = repository.findByEmail(seller.getEmail());
-			Optional<User> buscaUser = repositoryUser.findByEmail(seller.getEmail());
+			Optional<Seller> buscaSeller = repository.findByEmailUsuario(seller.getEmailUsuario());
+			Optional<User> buscaUser = repositoryUser.findByEmailUsuario(seller.getEmailUsuario());
 			if (buscaSeller.isPresent() || buscaUser.isPresent()) {				
 				if (buscaSeller.get().getId() != seller.getId() )
 					throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Vendedor já existe!", null);

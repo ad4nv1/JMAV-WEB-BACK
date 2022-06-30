@@ -39,7 +39,7 @@ public class Product {
 	
 	@ManyToOne
 	@JoinColumn(name = "user_id")
-	@JsonIgnoreProperties("products")
+	@JsonIgnoreProperties("productsSeller")
 	private Seller seller;
 	
 	public long getId() {
@@ -113,8 +113,5 @@ public class Product {
 	public void setInventory(int inventory) {
 		this.inventory = inventory;
 	}
-	
-	
-	
 
 }

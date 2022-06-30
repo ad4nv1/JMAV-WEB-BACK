@@ -15,7 +15,7 @@ public class Seller extends User{
 	
 	@OneToMany(mappedBy = "seller", cascade =  CascadeType.ALL)
 	@JsonIgnoreProperties("seller")
-	private List<Product> products;
+	private List<Product> productsSeller;
 
 	public Seller() {}
 
@@ -36,12 +36,15 @@ public class Seller extends User{
 		this.balance = balance;
 	}
 
-	public List<Product> getProducts() {
-		return products;
+	public List<Product> getProductsSeller() {
+		return productsSeller;
 	}
 
-	public void setProducts(List<Product> products) {
-		this.products = products;
+	public void setProductsSeller(List<Product> productsSeller) {
+		this.productsSeller = productsSeller;
 	}
+
+	
+	
 
 }

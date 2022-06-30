@@ -56,9 +56,9 @@ public class UserController {
 	@PostMapping("/logar")
 	public ResponseEntity Autentication(@Valid @RequestBody LogarDto user){
 		try {
-			if(repository.findByEmail(user.getEmail()).isPresent()) {
-				Optional<User> userLogin = repository.findByEmail(user.getEmail());
-				if(user.getPassword().equals(userLogin.get().getPassword()))
+			if(repository.findByEmailUsuario(user.getEmail()).isPresent()) {
+				Optional<User> userLogin = repository.findByEmailUsuario(user.getEmail());
+				if(user.getPassword().equals(userLogin.get().getPasswordUsuario()))
 					return ResponseEntity.status(HttpStatus.OK).body(userLogin);
 				else return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Login ou senha incorretos");
 			}else return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Usuario não encontrado");
@@ -70,7 +70,7 @@ public class UserController {
 	
 	@PostMapping("/cadastrar")
 	public ResponseEntity Post(@Valid @RequestBody User usuario){
-		if(repository.findByEmail(usuario.getEmail()).isPresent()) {
+		if(repository.findByEmailUsuario(usuario.getEmailUsuario()).isPresent()) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
 		}else {
 			try {
@@ -101,7 +101,7 @@ public class UserController {
 	public ResponseEntity updateCar(@RequestBody Long id, String valor) {
 		if(repository.findById(id).isPresent()) {
 			User user = repository.getById(id);
-			user.setCar(valor);
+			user.setCarUsuario(valor);
 			return ResponseEntity.status(HttpStatus.OK).body(user);
 		}else {
 			return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Usuário não encontrado");

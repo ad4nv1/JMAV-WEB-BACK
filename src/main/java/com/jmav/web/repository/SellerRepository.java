@@ -9,5 +9,5 @@ import com.jmav.web.model.Seller;
 
 @Repository
 public interface SellerRepository extends JpaRepository<Seller, Long>{
-	public Optional<Seller> findByEmail(String email);
+	public Optional<Seller> findByEmailUsuario(String email);
 }

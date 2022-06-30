@@ -18,7 +18,7 @@ public class UserService {
 	
 	public Optional<User> updateUser(User user) {
 		if (repository.findById(user.getId()).isPresent()) {
-			Optional<User> buscaUsuario = repository.findByEmail(user.getEmail());
+			Optional<User> buscaUsuario = repository.findByEmailUsuario(user.getEmailUsuario());
 			if (buscaUsuario.isPresent()) {				
 				if (buscaUsuario.get().getId() != user.getId())
 					throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Usuário já existe!", null);
