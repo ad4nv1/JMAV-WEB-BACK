@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.jmav.web.model.Product;
 import com.jmav.web.model.User;
 import com.jmav.web.model.dto.LogarDto;
 import com.jmav.web.repository.UserRepository;
@@ -97,16 +98,18 @@ public class UserController {
         repository.deleteById(id);
 	}
 	
-	@PostMapping("/updatecar")
-	public ResponseEntity updateCar(@RequestBody Long id, String valor) {
-		if(repository.findById(id).isPresent()) {
-			User user = repository.getById(id);
-			user.setCarUsuario(valor);
-			return ResponseEntity.status(HttpStatus.OK).body(user);
-		}else {
-			return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Usuário não encontrado");
-		}
-		
-	}
+//	@PostMapping("/updatecar")
+//	public ResponseEntity updateCar(@RequestBody Long id, Product valor) {
+//		if(repository.findById(id).isPresent()) {
+//			User user = repository.getById(id);
+//			List<Product> carUsuario = user.getCarUsuario();
+//			carUsuario.add(valor);
+//			user.setCarUsuario(carUsuario);
+//			return ResponseEntity.status(HttpStatus.OK).body(user);
+//		}else {
+//			return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Usuário não encontrado");
+//		}
+//		
+//	}
 	
 }

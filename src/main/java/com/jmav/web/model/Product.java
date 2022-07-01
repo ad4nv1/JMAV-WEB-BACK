@@ -42,8 +42,25 @@ public class Product {
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	@JsonIgnoreProperties("productsSeller")
-	private Seller seller;
+	private User seller;
 	
+	
+	
+	public Product(long id, @NotNull String name, @NotNull double price, @NotNull String description, String image,
+			@NotNull String provider, String category, @NotNull int inventory, User seller) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.price = price;
+		this.description = description;
+		this.image = image;
+		this.provider = provider;
+		this.category = category;
+		this.inventory = inventory;
+		this.seller = seller;
+	}
+	public Product() {}
+
 	public long getId() {
 		return id;
 	}
@@ -72,11 +89,11 @@ public class Product {
 		this.image = image;
 	}
 
-	public Seller getSeller() {
+	public User getSeller() {
 		return seller;
 	}
 
-	public void setSeller(Seller seller) {
+	public void setSeller(User seller) {
 		this.seller = seller;
 	}
 
