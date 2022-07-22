@@ -1,6 +1,9 @@
 package com.jmav.web.controller;
 
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import javax.validation.Valid;
 
 import org.springframework.http.HttpStatus;
@@ -12,7 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.jmav.web.model.dto.Servicos;
 
 @RestController
@@ -22,7 +26,7 @@ public class Requisicoes {
 	
 	
 	@PostMapping("/consultarCEP")
-	public ResponseEntity consultarPreco(@Valid @RequestBody String cep) {
+	public ResponseEntity consultarPreco(@Valid @RequestBody String cep) throws JsonMappingException, JsonProcessingException {
 			String url = "http://ws.correios.com.br/calculador/CalcPrecoPrazo.aspx?nCdEmpresa=08082650&sDsSenha=564321&sCepOrigem=53441310&sCepDestino="+cep+"&nVlPeso=1&nCdFormato=1&nVlComprimento=20&nVlAltura=20&nVlLargura=20&sCdMaoPropria=n&nVlValorDeclarado=0&sCdAvisoRecebimento=n&nCdServico=04510&nVlDiametro=0&StrRetorno=xml&nIndicaCalculo=3";
 			Servicos s = new Servicos();
 			RestTemplate requisicao = new RestTemplate();

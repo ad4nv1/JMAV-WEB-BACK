@@ -1,19 +1,17 @@
-package com.jmav.web.model.dto;
+package com.jmav.web.model;
 
-public class cServico { 
-	
+public class cServico {
 	private String Codigo;
-	private double Valor;
+	private String Valor;
 	private int PrazoEntrega;
-	private double ValorSemAdicionais;
-	private double ValorMaoPropria;
-	private double ValorAvisoRecebimento;
-	private double ValorValorDeclarado;
+	private String ValorSemAdicionais;
+	private String ValorMaoPropria;
+	private String ValorAvisoRecebimento;
+	private String ValorValorDeclarado;
 	private String EntregaDomiciliar;
 	private String EntregaSabado;
-	private Object obsFim;
 	private int Erro;
-	private Object MsgErro;
+	
 	
 	public String getCodigo() {
 		return Codigo;
@@ -21,10 +19,10 @@ public class cServico {
 	public void setCodigo(String codigo) {
 		Codigo = codigo;
 	}
-	public double getValor() {
+	public String getValor() {
 		return Valor;
 	}
-	public void setValor(double valor) {
+	public void setValor(String valor) {
 		Valor = valor;
 	}
 	public int getPrazoEntrega() {
@@ -33,28 +31,28 @@ public class cServico {
 	public void setPrazoEntrega(int prazoEntrega) {
 		PrazoEntrega = prazoEntrega;
 	}
-	public double getValorSemAdicionais() {
+	public String getValorSemAdicionais() {
 		return ValorSemAdicionais;
 	}
-	public void setValorSemAdicionais(double valorSemAdicionais) {
+	public void setValorSemAdicionais(String valorSemAdicionais) {
 		ValorSemAdicionais = valorSemAdicionais;
 	}
-	public double getValorMaoPropria() {
+	public String getValorMaoPropria() {
 		return ValorMaoPropria;
 	}
-	public void setValorMaoPropria(double valorMaoPropria) {
+	public void setValorMaoPropria(String valorMaoPropria) {
 		ValorMaoPropria = valorMaoPropria;
 	}
-	public double getValorAvisoRecebimento() {
+	public String getValorAvisoRecebimento() {
 		return ValorAvisoRecebimento;
 	}
-	public void setValorAvisoRecebimento(double valorAvisoRecebimento) {
+	public void setValorAvisoRecebimento(String valorAvisoRecebimento) {
 		ValorAvisoRecebimento = valorAvisoRecebimento;
 	}
-	public double getValorValorDeclarado() {
+	public String getValorValorDeclarado() {
 		return ValorValorDeclarado;
 	}
-	public void setValorValorDeclarado(double valorValorDeclarado) {
+	public void setValorValorDeclarado(String valorValorDeclarado) {
 		ValorValorDeclarado = valorValorDeclarado;
 	}
 	public String getEntregaDomiciliar() {
@@ -69,24 +67,13 @@ public class cServico {
 	public void setEntregaSabado(String entregaSabado) {
 		EntregaSabado = entregaSabado;
 	}
-	public Object getObsFim() {
-		return obsFim;
-	}
-	public void setObsFim(Object obsFim) {
-		this.obsFim = obsFim;
-	}
 	public int getErro() {
 		return Erro;
 	}
 	public void setErro(int erro) {
 		Erro = erro;
 	}
-	public Object getMsgErro() {
-		return MsgErro;
-	}
-	public void setMsgErro(Object msgErro) {
-		MsgErro = msgErro;
-	}
-			
+	
+	
 
 }
